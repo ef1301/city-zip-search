@@ -7,7 +7,7 @@ const City = () => {
   const [message, setMessage] = useState(null);
 
   const updateQuery = e => {
-    setQuery(`${e.target.value}`);
+    setQuery(`${e.target.value.toUpperCase()}`);
   };
 
   const fetchCities = async () => {

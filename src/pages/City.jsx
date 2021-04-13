@@ -6,9 +6,13 @@ const City = () => {
   const [results, setResults] = useState(null);
   const [message, setMessage] = useState(null);
 
+  const updateQuery = e => {
+    setQuery(`${e.target.value}`);
+  };
+
   const fetchCities = async () => {
     axios
-      .get(`http://ctp-zip-api.herokuapp.com/city/SPRINGFIEL`)
+      .get(`http://ctp-zip-api.herokuapp.com/city/${query}`)
       .then(res => {
         setMessage(null);
         setResults(res.data);
@@ -22,25 +26,26 @@ const City = () => {
       });
   };
 
-  console.log(results);
   return (
     <>
       <h1>City Search</h1>
       {/* TODO: setup input */}
-
+      <input value={query} onChange={updateQuery} />
       <button onClick={fetchCities}>Search</button>
       <br />
       {/* TODO: pretty format loading */}
       {message == null && results == null && <>Loading!</>}
-      {/* TODO: pretty format error message */}
+
       {message != null && results == null && (
         <>
+          {/* TODO: pretty format error message */}
           Something went wrong! <br />
           {message.status}: {message.text}
         </>
       )}
 
-      {results != null && "hello"}
+      {/* TODO: map over results and pretty format zipcodes */}
+      {results != null && JSON.stringify(results)}
     </>
   );
 };

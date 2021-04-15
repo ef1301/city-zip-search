@@ -36,7 +36,7 @@ const Zipcode = () => {
 
   return (
     <>
-      <form onSubmit={submitForm} style={{width:"90vw", margin: "5vh auto"}}>
+      <form onSubmit={submitForm} style={{width:"90vw", margin: "5vh auto 0 auto"}}>
         <h1>Zipcode Search</h1>
         {/* TODO: setup input */}
         <input value={query} onChange={updateQuery} />
@@ -44,7 +44,7 @@ const Zipcode = () => {
       </form>
       <br />
 
-      <div id="zip-results" style={{width:"90vw", margin: "1vh auto"}}>
+      <div id="zip-results" style={{width:"90vw", margin: "5vh auto", display:"flex", flexFlow: "column wrap"}}>
       {/* TODO: pretty format loading */}
       {message == null && results == null && (
         <Card>
@@ -67,9 +67,8 @@ const Zipcode = () => {
       {/* TODO: map over results and pretty format zipcodes */}
       {results != null && results.map(item => 
         <Card>
-          <Card.Header>{item.City}</Card.Header>
+          <Card.Header>{item.City}, {item.State}</Card.Header>
           <Card.Body>
-              <li>City: {item.City}</li>
               <li>State: {item.State}</li>
               <li>Location: ({item.Lat}, {item.Long})</li>
               <li>Population (estimated):{item.EstimatedPopulation}</li>

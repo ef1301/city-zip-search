@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Card from 'react-bootstrap/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 
 const Zipcode = () => {
@@ -10,12 +12,18 @@ const Zipcode = () => {
     setQuery(`${e.target.value}`);
   };
 
+  const submitForm = e => {
+    e.preventDefault();
+    fetchZipcodes();
+  }
+
   const fetchZipcodes = async () => {
     axios
       .get(`http://ctp-zip-api.herokuapp.com/zip/${query}`)
       .then(res => {
         setMessage(null);
         setResults(res.data);
+        console.log(res.data);
       })
       .catch(err => {
         setResults(null);
@@ -28,25 +36,48 @@ const Zipcode = () => {
 
   return (
     <>
-      <h1>Zipcode Search</h1>
-      {/* TODO: setup input */}
-      <input value={query} onChange={updateQuery} />
-      <button onClick={fetchZipcodes}>Search</button>
+      <form onSubmit={submitForm} style={{width:"90vw", margin: "5vh auto"}}>
+        <h1>Zipcode Search</h1>
+        {/* TODO: setup input */}
+        <input value={query} onChange={updateQuery} />
+        <input type="submit" value="Submit"></input>
+      </form>
       <br />
+
+      <div id="zip-results" style={{width:"90vw", margin: "1vh auto"}}>
       {/* TODO: pretty format loading */}
-      {message == null && results == null && <>Loading!</>}
+      {message == null && results == null && (
+        <Card>
+          <Card.Body>
+            Loading!
+          </Card.Body>
+        </Card>
+      )}
 
       {message != null && results == null && (
-        <>
+          <Card>
           {/* TODO: pretty format error message */}
-          Something went wrong! <br />
+          <Card.Header>Something went wrong!</Card.Header>
+          <Card.Body>
           {message.status}: {message.text}
-        </>
+          </Card.Body>
+        </Card>
       )}
 
       {/* TODO: map over results and pretty format zipcodes */}
-      {results != null && JSON.stringify(results)}
-    </>
+      {results != null && results.map(item => 
+        <Card>
+          <Card.Header>{item.City}</Card.Header>
+          <Card.Body>
+              <li>City: {item.City}</li>
+              <li>State: {item.State}</li>
+              <li>Location: ({item.Lat}, {item.Long})</li>
+              <li>Population (estimated):{item.EstimatedPopulation}</li>
+              <li>Total Wages: {item.TotalWages}</li>
+          </Card.Body>
+        </Card>)}
+        </div>
+      </>
   );
 };
 

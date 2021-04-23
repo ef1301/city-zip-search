@@ -43,7 +43,7 @@ const Zipcode = () => {
         <h1>Zipcode Search</h1>
         {/* TODO: setup input */}
         <input value={query} onChange={updateQuery} />
-        <input type="submit" value="Submit"></input>
+        <input type="submit" value="search"></input>
       </form>
       <br />
 
@@ -75,8 +75,8 @@ const Zipcode = () => {
 
         {/* TODO: map over results and pretty format zipcodes */}
         {results != null &&
-          results.map((item) => (
-            <Card>
+          results.map((item, index) => (
+            <Card key={index}>
               <Card.Header>
                 {item.City}, {item.State}
               </Card.Header>

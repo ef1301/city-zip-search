@@ -28,12 +28,19 @@ const City = () => {
       });
   };
 
+  const submitForm = (e) => {
+    e.preventDefault();
+    fetchCities();
+  };
+
   return (
     <>
       <h1>City Search</h1>
       {/* TODO: setup input */}
+      <form onSubmit={submitForm}>
       <input value={query} onChange={updateQuery} />
-      <button onClick={fetchCities}>Search</button>
+      <input type="submit" value="search"></input>
+      </form>
       <br />
 
       <div
@@ -68,8 +75,8 @@ const City = () => {
               All Zip Codes matching <b>{query}</b>:
             </Card.Header>
             <Card.Body>
-              {results.map((item) => (
-                <li>{item}</li>
+              {results.map((item, index) => (
+                <li key={index}>{item}</li>
               ))}
             </Card.Body>
           </Card>

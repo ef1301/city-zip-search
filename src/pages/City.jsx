@@ -1,30 +1,29 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Card from 'react-bootstrap/Card';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Card from "react-bootstrap/Card";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const City = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState(null);
   const [message, setMessage] = useState(null);
 
-  const updateQuery = e => {
+  const updateQuery = (e) => {
     setQuery(`${e.target.value.toUpperCase()}`);
   };
 
   const fetchCities = async () => {
     axios
       .get(`http://ctp-zip-api.herokuapp.com/city/${query}`)
-      .then(res => {
+      .then((res) => {
         setMessage(null);
         setResults(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         setResults(null);
         setMessage({
           status: err.response.status,
-          text: err.response.statusText
+          text: err.response.statusText,
         });
       });
   };
@@ -37,44 +36,46 @@ const City = () => {
       <button onClick={fetchCities}>Search</button>
       <br />
 
-      <div id="city-results" style={{width:"90vw", margin: "5vh auto", display:"flex", flexFlow: "column wrap"}}>
-
-      {message == null && results == null && (
-        <Card>
-          <Card.Body>
-            Search a City!
-          </Card.Body>
-        </Card>
-      )}
-
-      {message != null && results == null && (
+      <div
+        id="city-results"
+        style={{
+          width: "90vw",
+          margin: "5vh auto",
+          display: "flex",
+          flexFlow: "column wrap",
+        }}
+      >
+        {message == null && results == null && (
           <Card>
-          {/* TODO: pretty format error message */}
-          <Card.Header>Something went wrong!</Card.Header>
-          <Card.Body>
-          {message.status}: {message.text}
-          </Card.Body>
-        </Card>
-      )}
+            <Card.Body>Search a City!</Card.Body>
+          </Card>
+        )}
 
-      {/* TODO: map over results and pretty format zipcodes */}
-      {results != null && (
-        <Card style={{ width: '80rem'}}>
-          <Card.Header>
-          All Zip Codes in <b>{query}</b>:
-          </Card.Header>
-          <Card.Body>
-          {results.map(item => 
-            <li>{item}</li>
-          )}
-          </Card.Body>
-        </Card>
-      )}
+        {message != null && results == null && (
+          <Card>
+            {/* TODO: pretty format error message */}
+            <Card.Header>Something went wrong!</Card.Header>
+            <Card.Body>
+              {message.status}: {message.text}
+            </Card.Body>
+          </Card>
+        )}
 
-        </div>
-
+        {/* TODO: map over results and pretty format zipcodes */}
+        {results != null && (
+          <Card style={{ width: "80rem" }}>
+            <Card.Header>
+              All Zip Codes matching <b>{query}</b>:
+            </Card.Header>
+            <Card.Body>
+              {results.map((item) => (
+                <li>{item}</li>
+              ))}
+            </Card.Body>
+          </Card>
+        )}
+      </div>
     </>
-
   );
 };
 

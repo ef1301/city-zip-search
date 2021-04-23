@@ -1,7 +1,7 @@
 {
   "name": "city-zip-search",
   "version": "0.1.0",
-  "homepage": "https://ef1301.github.io/public-apis",
+  "homepage": "http://ef1301.github.io/public-apis",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",

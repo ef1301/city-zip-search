@@ -14,7 +14,7 @@ const City = () => {
 
   const fetchCities = async () => {
     axios
-      .get(`http://ctp-zip-api.herokuapp.com/city/${query}`)
+      .get(`https://ctp-zip-api.herokuapp.com/city/${query}`)
       .then((res) => {
         setMessage(null);
         setResults(res.data);

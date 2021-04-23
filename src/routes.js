@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 
 const Routes = () => {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path="/city" exact component={City} />
         <Route path="/zipcode" exact component={Zipcode} />

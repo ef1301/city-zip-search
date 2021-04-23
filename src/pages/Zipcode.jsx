@@ -49,7 +49,7 @@ const Zipcode = () => {
       {message == null && results == null && (
         <Card>
           <Card.Body>
-            Loading!
+            Search a Zip Code!
           </Card.Body>
         </Card>
       )}
@@ -71,7 +71,7 @@ const Zipcode = () => {
           <Card.Body>
               <li>State: {item.State}</li>
               <li>Location: ({item.Lat}, {item.Long})</li>
-              <li>Population (estimated):{item.EstimatedPopulation}</li>
+              <li>Population (estimated): {item.EstimatedPopulation}</li>
               <li>Total Wages: {item.TotalWages}</li>
           </Card.Body>
         </Card>)}

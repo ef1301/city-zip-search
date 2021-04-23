@@ -42,7 +42,7 @@ const City = () => {
       {message == null && results == null && (
         <Card>
           <Card.Body>
-            Loading!
+            Search a City!
           </Card.Body>
         </Card>
       )}
